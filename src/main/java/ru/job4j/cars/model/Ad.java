@@ -15,7 +15,7 @@ public class Ad {
     private String description;
     private boolean sold;
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created = new Date(System.currentTimeMillis());;
+    private Date created = new Date(System.currentTimeMillis());
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
