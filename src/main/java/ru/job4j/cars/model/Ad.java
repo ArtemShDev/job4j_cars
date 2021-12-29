@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,13 +14,15 @@ public class Ad {
     private String name;
     private String description;
     private boolean sold;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created = new Date(System.currentTimeMillis());;
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "carBody_id")
     private CarBody carBody;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

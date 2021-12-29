@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS ads (
                                      name varchar(100) NOT NULL,
                                      description varchar(500) NOT NULL,
                                      sold boolean,
+                                     created timestamp,
                                      user_id integer NOT NULL REFERENCES users(id),
                                      carBody_id integer NOT NULL REFERENCES carBodies(id),
                                      brand_id integer NOT NULL REFERENCES brands(id)
