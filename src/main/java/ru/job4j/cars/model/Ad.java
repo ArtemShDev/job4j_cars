@@ -13,13 +13,13 @@ public class Ad {
     private String name;
     private String description;
     private boolean sold;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "carBody_id")
     private CarBody carBody;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
