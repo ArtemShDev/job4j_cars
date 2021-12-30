@@ -16,13 +16,13 @@ public class Ad {
     private boolean sold;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created = new Date(System.currentTimeMillis());
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "carBody_id")
     private CarBody carBody;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "brand_id")
     private Brand brand;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -105,5 +105,13 @@ public class Ad {
 
     public void addPhoto(Photo photo) {
         this.photo.add(photo);
+    }
+
+    @Override
+    public String toString() {
+        return "Ad{" +
+                "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\''
+                + ", sold=" + sold + ", created=" + created + ", user=" + user
+                + ", carBody=" + carBody + ", brand=" + brand + '}';
     }
 }
