@@ -23,7 +23,7 @@ public class HbrRun {
             Photo photo1 = new Photo("./photos/1.png");
             Photo photo2 = new Photo("./photos/2.png");
             Photo photo3 = new Photo("./photos/3.png");
-            Ad ad = new Ad("Sale Toyota Corolla", "Sale Toyota Corolla 1.8 2009", user, carBody, brand);
+            Ad ad = new Ad("Sale Toyota Corolla", "Sale Toyota Corolla 1.8 2009", user, carBody, brand, new Model(3));
             ad.addPhoto(photo1);
             ad.addPhoto(photo2);
             ad.addPhoto(photo3);

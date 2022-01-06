@@ -16,27 +16,47 @@ public class Ad {
     private boolean sold;
     @Temporal(TemporalType.TIMESTAMP)
     private Date created = new Date(System.currentTimeMillis());
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
     @JoinColumn(name = "user_id")
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
     @JoinColumn(name = "carBody_id")
     private CarBody carBody;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
     @JoinColumn(name = "brand_id")
     private Brand brand;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
+    @JoinColumn(name = "model_id")
+    private Model model;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Photo> photo = new HashSet<>();
 
     public Ad() {
     }
 
-    public Ad(String name, String description, User user, CarBody carBody, Brand brand) {
+    public Ad(String name, String description, User user, CarBody carBody, Brand brand, Model model) {
         this.name = name;
         this.description = description;
         this.user = user;
         this.carBody = carBody;
         this.brand = brand;
+        this.model = model;
+    }
+
+    public Ad(String name, String description, CarBody carBody, Brand brand, Model model) {
+        this.name = name;
+        this.description = description;
+        this.carBody = carBody;
+        this.brand = brand;
+        this.model = model;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 
     public int getId() {
@@ -111,6 +131,6 @@ public class Ad {
     public String toString() {
         return "Ad{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\''
                 + ", sold=" + sold + ", created=" + created + ", user=" + user
-                + ", carBody=" + carBody + ", brand=" + brand + '}';
+                + ", carBody=" + carBody + ", brand=" + brand + ", model=" + model + '}';
     }
 }

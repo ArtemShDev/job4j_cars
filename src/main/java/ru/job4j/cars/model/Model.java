@@ -4,27 +4,32 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "brands")
-public class Brand {
+@Table(name = "models")
+public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
-    public Brand() {
+    public Model() {
     }
 
-    public Brand(int id) {
+    public Model(int id) {
         this.id = id;
     }
 
-    public Brand(int id, String name) {
-        this.id = id;
+    public Model(String name, Brand brand) {
         this.name = name;
+        this.brand = brand;
     }
 
-    public Brand(String name) {
+    public Model(int id, String name, Brand brand) {
+        this.id = id;
         this.name = name;
+        this.brand = brand;
     }
 
     public int getId() {
@@ -43,6 +48,14 @@ public class Brand {
         this.name = name;
     }
 
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -51,8 +64,8 @@ public class Brand {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Brand brand = (Brand) o;
-        return id == brand.id;
+        Model model = (Model) o;
+        return id == model.id;
     }
 
     @Override

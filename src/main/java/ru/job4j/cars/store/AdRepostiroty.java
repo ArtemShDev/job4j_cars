@@ -1,4 +1,4 @@
-package ru.job4j.todo.store;
+package ru.job4j.cars.store;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,8 +6,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import ru.job4j.cars.model.Ad;
-import ru.job4j.cars.model.Brand;
+import ru.job4j.cars.model.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,14 +17,6 @@ public class AdRepostiroty {
     private static final StandardServiceRegistry REGISTRY = new StandardServiceRegistryBuilder()
             .configure().build();
     private static final SessionFactory SF = new MetadataSources(REGISTRY).buildMetadata().buildSessionFactory();
-
-    public static void main(String[] args) {
-        System.out.println(findAdsForLastDay());
-        System.out.println(findAdsWithPhoto());
-        Brand brand = new Brand("Any");
-        brand.setId(1);
-        System.out.println(findAdsByBrand(brand));
-    }
 
     private static List<Ad> findAdsForLastDay() {
         return tx(session -> session.createQuery("select distinct a from Ad a join fetch a.brand b"
