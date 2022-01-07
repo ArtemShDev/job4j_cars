@@ -69,7 +69,7 @@ function addRowToListAds(ad) {
     row_th.setAttribute("class", "table-active");
     let img = document.createElement('img');
     img.setAttribute("src", firstPhoto);
-    img.setAttribute("width", "70px");
+    img.setAttribute("width", "100px");
     img.setAttribute("height", "70px");
     row_th.appendChild(img);
     row.appendChild(row_th);

@@ -74,7 +74,8 @@ public class StoreHibernate implements Store, AutoCloseable {
 
     @Override
     public Ad getAd(int id) {
-        return tx(session -> session.get(Ad.class, id));
+        return (Ad) tx(session -> session.createQuery("select distinct a from Ad a"
+                + " left join fetch a.photo ph where a.id = :id").setParameter("id", id).uniqueResult());
     }
 
     @Override
@@ -91,8 +92,8 @@ public class StoreHibernate implements Store, AutoCloseable {
     @Override
     public List<Ad> findAllAds(String all, Map<String, String> params) {
         return tx(session -> {
-            Query query = session.createQuery("from Ad" + all);
-            if (!all.equals("")) {
+            Query query = session.createQuery("select distinct ad from Ad ad left join fetch ad.photo ph" + all);
+            if (!"".equals(all)) {
                 for (Map.Entry<String, String> entry : params.entrySet()) {
                     String key = entry.getKey();
                     if (key.equals("brand")) {

@@ -131,7 +131,7 @@
                         <ul id="photoDB">
                             <c:forEach items="${ad.photo}" var="ph">
                                 <li>
-                                    <img class="db_img" width="150px" height="150px" src="<c:out value="${ph.path}"/>"
+                                    <img class="db_img" width="200px" height="150px" src="<c:out value="${ph.path}"/>"
                                          alt="">
                                 </li>
                             </c:forEach>

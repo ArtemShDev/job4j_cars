@@ -28,7 +28,7 @@ public class Ad {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH})
     @JoinColumn(name = "model_id")
     private Model model;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Photo> photo = new HashSet<>();
 
     public Ad() {

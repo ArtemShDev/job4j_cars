@@ -30,7 +30,7 @@ public class ListAdServlet extends HttpServlet {
                     src = " where ";
                 }
                 srcMap.put(param.getKey(), val);
-                src = src + (src.length() > 7 ? " AND " : "") + param.getKey() + " = :" + param.getKey();
+                src = src + (src.length() > 7 ? " AND " : "") + "ad." + param.getKey() + " = :" + param.getKey();
             }
         }
         String json = GSON.toJson(StoreHibernate.instOf().findAllAds(src, srcMap));

@@ -4,12 +4,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import ru.job4j.cars.Config;
 import ru.job4j.cars.model.*;
 import ru.job4j.cars.store.StoreHibernate;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,13 +24,7 @@ public class AdServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        String idAd = req.getParameter("id");
-        if (session.getAttribute("user") == null) {
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
-        } else {
-            req.getRequestDispatcher("edit.jsp").forward(req, resp);
-        }
+        req.getRequestDispatcher("edit.jsp").forward(req, resp);
     }
 
     @Override
@@ -77,10 +70,10 @@ public class AdServlet extends HttpServlet {
             for (FileItem item : items) {
                 if (item.isFormField()) {
                     params.put(item.getFieldName(), item.getString());
-                    } else {
+                } else {
                     photos.add(item);
                 }
-                }
+            }
         } catch (FileUploadException e) {
             e.printStackTrace();
         }
@@ -90,9 +83,8 @@ public class AdServlet extends HttpServlet {
 
     private void loadFiles(List<FileItem> items, User user) {
         photos = new HashSet<>();
-        Properties cfg = new Properties();
+        Properties cfg = Config.getCfg();
         try {
-            cfg.load(AdServlet.class.getClassLoader().getResourceAsStream("dir.properties"));
             File folder = new File(cfg.getProperty("dir") + user.getId());
             if (!folder.exists()) {
                 folder.mkdir();
